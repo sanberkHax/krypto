@@ -1,17 +1,11 @@
-import Image from 'next/image';
 import { StarButton } from './StarButton';
+import Image from 'next/image';
 
-export const FavoritedCrypto = ({
-  icon,
-  name,
-  price,
-  oneDayChange,
-  sparkline,
-}) => {
+export const Crypto = ({ name, icon, price, oneDayChange, oneDayVolume }) => {
   return (
     <tr className="border-t-2 border-slate-300 align-middle">
       <td>
-        <StarButton starred />
+        <StarButton />
       </td>
       <td>
         <div className="relative w-7 h-7">
@@ -21,9 +15,7 @@ export const FavoritedCrypto = ({
       <td>{name}</td>
       <td>{price}</td>
       <td>{oneDayChange}</td>
-      <td>
-        <Image src={sparkline} alt="sparkline" width="120px" height="30px" />
-      </td>
+      <td>{oneDayVolume}</td>
     </tr>
   );
 };
