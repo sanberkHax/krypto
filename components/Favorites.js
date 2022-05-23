@@ -1,7 +1,11 @@
 import { FavoritedCrypto } from './FavoritedCrypto';
 import { SelectedStarIcon } from './SelectedStarIcon';
+import { useContext } from 'react';
+import { FavoritesContext } from '../store/FavoritesContext';
 
 export const Favorites = () => {
+  const { favorites } = useContext(FavoritesContext);
+
   return (
     <div className="flex flex-col justify-between gap-4">
       <div className="flex gap-2 justify-center items-center">
@@ -21,13 +25,17 @@ export const Favorites = () => {
             </tr>
           </thead>
           <tbody>
-            <FavoritedCrypto
-              icon="https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579"
-              price="$30,168.84"
-              oneDayChange="3.0%"
-              name="Bitcoin"
-              sparkline="https://www.coingecko.com/coins/1/sparkline"
-            />
+            {favorites.map((f) => (
+              <FavoritedCrypto
+                id={f.id}
+                key={f.id}
+                icon={f.icon}
+                price={f.price}
+                oneDayChange={f.oneDayChange}
+                name={f.name}
+                sparkline={f.sparkline}
+              />
+            ))}
           </tbody>
         </table>
       </div>

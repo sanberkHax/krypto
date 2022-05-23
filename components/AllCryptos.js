@@ -12,6 +12,7 @@ export const AllCryptos = () => {
     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${pageIndex}&sparkline=true&price_change_percentage=24h`,
     fetcher
   );
+
   if (error)
     return <div className="text-red-500 text-center">Failed to Load Data</div>;
   if (!data)
@@ -40,6 +41,7 @@ export const AllCryptos = () => {
           <tbody>
             {data?.map((c) => (
               <Crypto
+                id={c.id}
                 key={c.id}
                 icon={c.image}
                 price={`$${c.current_price.toLocaleString()}`}
@@ -48,6 +50,7 @@ export const AllCryptos = () => {
                 ).toFixed(2)}%`}
                 name={c.name}
                 oneDayVolume={`$${c.total_volume.toLocaleString()}`}
+                sparkline={c.sparkline_in_7d.price}
               />
             ))}
           </tbody>
