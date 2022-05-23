@@ -1,6 +1,25 @@
+import { useState } from 'react';
 import { Crypto } from './Crypto';
+import useSWR from 'swr';
+import { Ring } from 'react-awesome-spinners';
 
 export const AllCryptos = () => {
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+  const [pageIndex, setPageIndex] = useState(1);
+
+  const { data, error } = useSWR(
+    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${pageIndex}&sparkline=true&price_change_percentage=24h`,
+    fetcher
+  );
+  if (error)
+    return <div className="text-red-500 text-center">Failed to Load Data</div>;
+  if (!data)
+    return (
+      <div className="flex justify-center">
+        <Ring />
+      </div>
+    );
   return (
     <div className="flex flex-col justify-between gap-4">
       <div className="flex gap-2 justify-center items-center">
@@ -19,22 +38,31 @@ export const AllCryptos = () => {
             </tr>
           </thead>
           <tbody>
-            <Crypto
-              icon="https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579"
-              price="$30,168.84"
-              oneDayChange="3.0%"
-              name="Bitcoin"
-              oneDayVolume="$19,614,704,006"
-            />
-            <Crypto
-              icon="https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579"
-              price="$30,168.84"
-              oneDayChange="3.0%"
-              name="Bitcoin"
-              oneDayVolume="$19,614,704,006"
-            />
+            {data?.map((c) => (
+              <Crypto
+                key={c.id}
+                icon={c.image}
+                price={`$${c.current_price.toLocaleString()}`}
+                oneDayChange={`${parseFloat(
+                  c.price_change_percentage_24h
+                ).toFixed(2)}%`}
+                name={c.name}
+                oneDayVolume={`$${c.total_volume.toLocaleString()}`}
+              />
+            ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="flex justify-center gap-10 m-10">
+        {pageIndex > 1 && (
+          <button onClick={() => setPageIndex(pageIndex - 1)}>
+            Previous Page
+          </button>
+        )}
+        {pageIndex < 365 && (
+          <button onClick={() => setPageIndex(pageIndex + 1)}>Next Page</button>
+        )}
       </div>
     </div>
   );
