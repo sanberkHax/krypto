@@ -2,6 +2,7 @@ import { StarButton } from './StarButton';
 import Image from 'next/image';
 import { useContext, useEffect } from 'react';
 import { FavoritesContext } from '../store/FavoritesContext';
+import Link from 'next/link';
 
 export const Crypto = ({
   id,
@@ -39,10 +40,12 @@ export const Crypto = ({
       </td>
       <td>
         <div className="relative w-7 h-7">
-          <Image src={icon} alt="btc" layout="fill" />
+          <Image src={icon} alt="coin icon" layout="fill" />
         </div>
       </td>
-      <td>{name}</td>
+      <td>
+        <Link href={`/coins/${id}`}>{name}</Link>
+      </td>
       <td>{price}</td>
       <td>{oneDayChange}</td>
       <td>{oneDayVolume}</td>
