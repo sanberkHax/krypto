@@ -9,6 +9,7 @@ import {
 } from 'recharts';
 import useSWR from 'swr';
 import { useState } from 'react';
+import { Ring } from 'react-awesome-spinners';
 
 export const PriceChart = () => {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -44,8 +45,16 @@ export const PriceChart = () => {
       setRange('365');
     }
   };
+
+  if (!data)
+    return (
+      <div className="flex justify-center">
+        <Ring />
+      </div>
+    );
+
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center gap-4">
       <div className="flex justify-center gap-2" onClick={rangeHandler}>
         <button className="hover:text-orange-400">24h</button>
         <button className="hover:text-orange-400">7d</button>
