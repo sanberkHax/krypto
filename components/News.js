@@ -25,7 +25,7 @@ export const News = ({ query }) => {
         reducedResults.map((n, i) => (
           <div
             key={i}
-            className="flex flex-col gap-2 bg-slate-300 rounded-lg p-4"
+            className="flex flex-col gap-2 bg-slate-300 rounded-lg p-4 w-full"
           >
             <h1 className="font-bold">{n.title}</h1>
             <p>{n.description}</p>
