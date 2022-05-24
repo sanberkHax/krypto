@@ -62,7 +62,7 @@ const CryptoDetails = () => {
               </div>
               <h1 className="text-xl font-bold">{data?.name}</h1>
             </div>
-            <PriceChart />
+            <PriceChart id={id} />
             <div className="flex justify-center gap-4 text-center">
               <div>
                 <h1 className="font-bold">Market Cap</h1>

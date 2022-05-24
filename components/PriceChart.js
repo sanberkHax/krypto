@@ -11,13 +11,13 @@ import useSWR from 'swr';
 import { useState } from 'react';
 import { Ring } from 'react-awesome-spinners';
 
-export const PriceChart = () => {
+export const PriceChart = ({ id }) => {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
   const [range, setRange] = useState('1');
 
   const { data, error } = useSWR(
-    `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=${range}`,
+    `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${range}`,
     fetcher
   );
 
@@ -73,7 +73,11 @@ export const PriceChart = () => {
             domain={['dataMin', 'dataMax']}
             tickFormatter={(value) => `$${value.toLocaleString()}`}
           />
-          <Tooltip formatter={(value) => `$${value.toLocaleString()}`} />
+          <Tooltip
+            formatter={(value) =>
+              `$${value.toLocaleString('en-US', { minimumFractionDigits: 10 })}`
+            }
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>
