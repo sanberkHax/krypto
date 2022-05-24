@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import Image from 'next/image';
 import { Favorites } from '../components/Favorites';
 import { AllCryptos } from '../components/AllCryptos';
@@ -12,7 +13,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className="relative w-32 min-h-[30px]">
-        <Image src="/logo.svg" layout="fill" alt="logo" objectFit="content" />
+        <Link href="/">
+          <a>
+            <Image
+              src="/logo.svg"
+              layout="fill"
+              alt="logo"
+              objectFit="content"
+            />
+          </a>
+        </Link>
       </header>
       <main className="flex flex-col justify-start h-full gap-4">
         <Favorites />

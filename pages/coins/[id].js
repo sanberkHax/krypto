@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Link from 'next/link';
 import Image from 'next/image';
 import useSWR from 'swr';
 import dynamic from 'next/dynamic';
 import { Ring } from 'react-awesome-spinners';
+import { News } from './../../components/News';
 
 // Dynamically import chart to prevent hydration error
 const PriceChart = dynamic(
@@ -39,7 +41,16 @@ const CryptoDetails = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className="relative w-32 min-h-[30px]">
-        <Image src="/logo.svg" layout="fill" alt="logo" objectFit="content" />
+        <Link href="/">
+          <a>
+            <Image
+              src="/logo.svg"
+              layout="fill"
+              alt="logo"
+              objectFit="content"
+            />
+          </a>
+        </Link>
       </header>
       <main className="flex flex-col justify-start h-full gap-10">
         {data && (
@@ -67,6 +78,8 @@ const CryptoDetails = () => {
             </div>
           </>
         )}
+        <h1 className="font-bold text-center">News</h1>
+        <News query={id} />
       </main>
     </div>
   );

@@ -3,6 +3,7 @@ import { StarButton } from './StarButton';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 import { useContext } from 'react';
 import { FavoritesContext } from '../store/FavoritesContext';
+import Link from 'next/link';
 
 export const FavoritedCrypto = ({
   id,
@@ -29,7 +30,9 @@ export const FavoritedCrypto = ({
           <Image src={icon} alt="btc" layout="fill" />
         </div>
       </td>
-      <td>{name}</td>
+      <td>
+        <Link href={`/coins/${id}`}>{name}</Link>
+      </td>
       <td>{price}</td>
       <td>{oneDayChange}</td>
       <td>
