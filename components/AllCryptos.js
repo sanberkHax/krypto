@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Crypto } from './Crypto';
 import useSWR from 'swr';
 import { Ring } from 'react-awesome-spinners';
+import { Search } from './Search';
 
 export const AllCryptos = () => {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -25,6 +26,9 @@ export const AllCryptos = () => {
     <div className="flex flex-col justify-between gap-4">
       <div className="flex gap-2 justify-center items-center">
         <h1 className="font-bold">All Cryptocurrencies</h1>
+      </div>
+      <div className="flex justify-center relative">
+        <Search />
       </div>
       <div className="w-full text-sm flex justify-center border-2 border-solid border-black rounded-lg p-1">
         <table className="table-auto w-full text-center">
