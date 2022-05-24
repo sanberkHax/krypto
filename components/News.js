@@ -1,4 +1,5 @@
 import useSWR from 'swr';
+import { Ring } from 'react-awesome-spinners';
 
 export const News = ({ query }) => {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -8,9 +9,16 @@ export const News = ({ query }) => {
     fetcher
   );
 
-  console.log(data);
   const reducedResults = data?.results.slice(0, 5);
-  console.log(reducedResults);
+
+  if (error)
+    return <p className="text-red-500 text-center">Failed to load data</p>;
+  if (!data)
+    return (
+      <div className="flex justify-center">
+        <Ring />
+      </div>
+    );
   return (
     <div className="flex flex-col justify-center items-center gap-10">
       {reducedResults?.length > 0 ? (

@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
+import { Ring } from 'react-awesome-spinners';
 
 export const Search = () => {
   const [inputValue, setInputValue] = useState();
   const [searchData, setSearchData] = useState();
+  const [searchError, setSearchError] = useState();
 
   const debounced = useDebouncedCallback((value) => {
     setInputValue(value);
@@ -12,14 +14,22 @@ export const Search = () => {
 
   useEffect(() => {
     const fetchSearchResults = async () => {
-      const response = await fetch(
-        `https://api.coingecko.com/api/v3/search?query=${inputValue}`
-      );
-      setSearchData(await response.json());
+      try {
+        const response = await fetch(
+          `https://api.coingecko.com/api/v3/search?query=${inputValue}`
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        setSearchData(await response.json());
+      } catch (e) {
+        setSearchError(e);
+      }
     };
     fetchSearchResults();
   }, [inputValue]);
 
+  if (searchError) return <p>{searchError.message}</p>;
   return (
     <>
       <input
@@ -37,7 +47,7 @@ export const Search = () => {
               key={s.id}
               className="w-full h-full border-[1px] p-1 border-slate-500 hover:bg-slate-200"
             >
-              <Link href={`/${s.id}`}>{s.name}</Link>
+              <Link href={`/coins/${s.id}`}>{s.name}</Link>
             </li>
           ))}
         </ul>

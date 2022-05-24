@@ -25,7 +25,7 @@ export const AllCryptos = () => {
   return (
     <div className="flex flex-col justify-between gap-4">
       <div className="flex gap-2 justify-center items-center">
-        <h1 className="font-bold">All Cryptocurrencies</h1>
+        <h1 className="font-bold text-xl">All Cryptocurrencies</h1>
       </div>
       <div className="flex justify-center relative">
         <Search />

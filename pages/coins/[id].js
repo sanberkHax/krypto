@@ -26,7 +26,8 @@ const CryptoDetails = () => {
     `https://api.coingecko.com/api/v3/coins/${id}?localization=false&tickers=false&community_data=false&developer_data=false&sparkline=false`,
     fetcher
   );
-
+  if (error)
+    return <p className="text-red-500 text-center">Failed to load data</p>;
   if (!data)
     return (
       <div className="flex justify-center">

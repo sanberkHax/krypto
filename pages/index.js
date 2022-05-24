@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Favorites } from '../components/Favorites';
 import { AllCryptos } from '../components/AllCryptos';
+import { News } from './../components/News';
 
 export default function Home() {
   return (
@@ -27,6 +28,8 @@ export default function Home() {
       <main className="flex flex-col justify-start h-full gap-4">
         <Favorites />
         <AllCryptos />
+        <h1 className="text-center font-bold text-xl">News</h1>
+        <News query="crypto" />
       </main>
     </div>
   );

@@ -10,7 +10,7 @@ export const Favorites = () => {
     <div className="flex flex-col justify-between gap-4">
       <div className="flex gap-2 justify-center items-center">
         <SelectedStarIcon />
-        <h1 className="font-bold">Favorites</h1>
+        <h1 className="font-bold text-xl">Favorites</h1>
       </div>
       {favorites.length === 0 ? (
         <p className="text-center">{`You don't have any favorite`}</p>
